@@ -2,28 +2,35 @@
 
 import { formLoginType, loginFormSchema } from '@/schemas/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export function FormLogin() {
-  const form = useForm<formLoginType>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm<formLoginType>({
     resolver: zodResolver(loginFormSchema),
+    mode: 'onChange',
   });
 
-  const handleSubmit = (data: formLoginType) => {
-    console.log(data);
+  const router = useRouter();
+
+  const handleOnSubmit = (data: formLoginType) => {
+    localStorage.setItem('user', JSON.stringify({ email: data.email }));
+    router.push('/meals');
   };
 
   return (
     <form
-      className="flex flex-col gap-4 justify-center items-center bg-amber-200"
-      onSubmit={form.handleSubmit(handleSubmit)}
+      className="flex flex-col gap-4 justify-center items-center"
+      onSubmit={handleSubmit(handleOnSubmit)}
     >
       <div>
-        <input type="email" placeholder="Email" {...form.register('email')} />
-        {form.formState.errors.email && (
-          <p className="text-red-500 text-sm">
-            {form.formState.errors.email.message}
-          </p>
+        <input type="email" placeholder="Email" {...register('email')} />
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
       </div>
 
@@ -31,17 +38,24 @@ export function FormLogin() {
         <input
           type="password"
           placeholder="Password"
-          {...form.register('password')}
+          {...register('password')}
         />
 
-        {form.formState.errors.password && (
-          <p className="text-red-500 text-sm">
-            {form.formState.errors.password.message}
-          </p>
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
 
-      <button>Enter</button>
+      <button
+        disabled={!isValid || isSubmitting}
+        className={`p-2 rounded text-white font-bold transition-colors ${
+          !isValid || isSubmitting
+            ? 'bg-gray-400 cursor-not-allowed'
+            : 'bg-blue-600 hover:bg-blue-700'
+        }`}
+      >
+        {isSubmitting ? 'Entrando...' : 'Entrar'}
+      </button>
     </form>
   );
 }
