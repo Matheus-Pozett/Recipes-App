@@ -54,7 +54,7 @@ export function FormLogin() {
             : 'bg-blue-600 hover:bg-blue-700'
         }`}
       >
-        {isSubmitting ? 'Entrando...' : 'Entrar'}
+        {isSubmitting ? 'Entrando...' : 'Enter'}
       </button>
     </form>
   );
