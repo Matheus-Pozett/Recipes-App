@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { SearchBar } from '../SearchBar';
 
 const titleMap: Record<string, string> = {
   '/meals': 'Meals',
@@ -70,7 +71,7 @@ export function Header() {
 
       {currentTitle && <h1>{currentTitle}</h1>}
 
-      {showSearchButton && <input />}
+      {showSearchButton && <SearchBar />}
     </header>
   );
 }
