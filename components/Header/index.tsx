@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const titleMap: Record<string, string> = {
   '/meals': 'Meals',
@@ -15,6 +16,13 @@ export function Header() {
   const path = usePathname();
   const currentTitle = titleMap[path];
   const showSearchIcon = ['/meals', '/drinks'].includes(path);
+  const [showSearchButton, setShowSearchButton] = useState(false);
+
+  if (!currentTitle) return null;
+
+  const handleSearchButton = () => {
+    setShowSearchButton(!showSearchButton);
+  };
 
   return (
     <header>
@@ -39,7 +47,7 @@ export function Header() {
         />
         <nav className="flex gap-4">
           {showSearchIcon && (
-            <button>
+            <button onClick={handleSearchButton}>
               <Image
                 src="/searchIcon.svg"
                 alt="Botão de pesquisa"
@@ -61,6 +69,8 @@ export function Header() {
       </div>
 
       {currentTitle && <h1>{currentTitle}</h1>}
+
+      {showSearchButton && <input />}
     </header>
   );
 }
