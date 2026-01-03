@@ -102,3 +102,70 @@ Desenvolva o botão de busca que, ao ser clicado, permita a visualização da ba
 
 - ✅ Ao clicar no botão de busca pela **primeira vez**: a barra de busca aparece
 - ❌ Ao clicar no botão de busca pela **segunda vez**: a barra de busca desaparece
+
+---
+
+## 3 - BARRA DE BUSCA - HEADER
+
+### Elementos da Barra de Busca
+
+Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo:
+
+**Elementos obrigatórios:**
+
+- Input de busca (search input)
+- Radio button de busca por ingrediente (Ingredient)
+- Radio button de busca por nome (Name)
+- Radio button de busca pela primeira letra (First letter)
+- Botão de busca (Search)
+
+### Funcionalidade dos Radio Buttons
+
+Implemente três radio buttons na barra de busca que, em conjunto com o input de busca, devem mudar a forma como serão filtradas as receitas após a pessoa usuária clicar no botão Search.
+
+**APIs de Referência:**
+
+- (https://www.themealdb.com/api.php)
+- (https://www.thecocktaildb.com/api.php)
+
+#### Busca por Ingrediente (Ingredient)
+
+- Se o radio selecionado for `Ingredient`, a busca na API é feita corretamente pelo ingrediente
+- **Endpoint para comidas**: `https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}`
+- **Endpoint para bebidas**: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingrediente}`
+
+#### Busca por Nome (Name)
+
+- Se o radio selecionado for `Name`, a busca na API é feita corretamente pelo nome
+- **Endpoint para comidas**: `https://www.themealdb.com/api/json/v1/1/search.php?s={nome}`
+- **Endpoint para bebidas**: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s={nome}`
+
+#### Busca pela Primeira Letra (First letter)
+
+- Se o radio selecionado for `First letter`, a busca na API é feita corretamente pela primeira letra
+- **Endpoint para comidas**: `https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}`
+- **Endpoint para bebidas**: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}`
+
+⚠️ **Validação importante**: Se o radio selecionado for `First letter` e a busca na API for feita com mais de uma letra, deve-se exibir um `alert` com a mensagem:
+
+```
+"Your search must have only 1 (one) character"
+```
+
+### Seleção da API por Contexto
+
+Busque na API de comidas caso a pessoa esteja na página de comidas (`/meals`) e na API de bebidas caso a pessoa esteja na página de bebidas (`/drinks`):
+
+- **Tela de comidas** (`/meals`): utilizar endpoints do TheMealDB
+- **Tela de bebidas** (`/drinks`): utilizar endpoints do TheCocktailDB
+
+### Redirecionamento para Detalhes
+
+Redirecione a pessoa usuária para a tela de detalhes da receita caso apenas uma receita seja encontrada:
+
+**Comportamento esperado:**
+
+- Se apenas **uma comida** for encontrada: ir para sua rota de detalhes `/meals/:id`
+- Se apenas **uma bebida** for encontrada: ir para sua rota de detalhes `/drinks/:id`
+
+💡 O ID da receita deve constar na URL
