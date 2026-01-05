@@ -1,8 +1,10 @@
+import { Recipe } from '@/types';
+
 export const fetchRecipes = async (
   path: string,
   search: string,
   searchType: string
-) => {
+): Promise<Recipe[]> => {
   let result;
 
   const isMeal = path === '/meals';
