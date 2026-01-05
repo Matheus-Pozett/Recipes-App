@@ -1,5 +1,7 @@
-import { usePathname } from 'next/navigation';
+import { fetchRecipes } from '@/services/api';
+import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 type SearchFormType = {
   search: string;
@@ -14,9 +16,33 @@ export function SearchBar() {
   });
 
   const path = usePathname();
+  const router = useRouter();
 
-  const handleOnSubmit = (data: SearchFormType) => {
-    console.log(data);
+  const handleOnSubmit = async (data: SearchFormType) => {
+    if (data.searchType === 'firstLetter' && data.search.length !== 1) {
+      toast.error('Sua busca deve conter apenas 1 (um) caractere');
+      return;
+    }
+
+    const recipes = await fetchRecipes(path, data.search, data.searchType);
+
+    if (!recipes || recipes.length === 0) {
+      toast.error('Nenhuma receita encontrada para esses filtros.');
+      return;
+    }
+
+    if (recipes.length === 1) {
+      const recipe = recipes[0];
+      let id = '';
+
+      if ('idMeal' in recipe) {
+        id = recipe.idMeal;
+        router.push(`/meals/${id}`);
+      } else {
+        id = recipe.idDrink;
+        router.push(`/drinks/${id}`);
+      }
+    }
   };
 
   return (
