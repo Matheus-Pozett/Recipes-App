@@ -8,7 +8,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-describe('Teste de unidade: Componente FormLogin', () => {
+describe('Teste de integração: Componente FormLogin', () => {
   test('Deve renderizar os campos de email, senha e o botão de login', () => {
     render(<FormLogin />);
 
