@@ -47,21 +47,36 @@ export function SearchBar() {
 
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <input type="text" {...register('search')} />
+      <input type="text" placeholder="Buscar receita" {...register('search')} />
       <div>
         <div>
-          <input type="radio" value="ingredient" {...register('searchType')} />
-          <label>Ingredient</label>
+          <input
+            type="radio"
+            value="ingredient"
+            id="ingredient"
+            {...register('searchType')}
+          />
+          <label htmlFor="ingredient">Ingredient</label>
         </div>
 
         <div>
-          <input type="radio" value="name" {...register('searchType')} />
-          <label>Name</label>
+          <input
+            type="radio"
+            value="name"
+            id="name"
+            {...register('searchType')}
+          />
+          <label htmlFor="name">Name</label>
         </div>
 
         <div>
-          <input type="radio" value="firstLetter" {...register('searchType')} />
-          <label>First Letter</label>
+          <input
+            type="radio"
+            value="firstLetter"
+            id="firstLetter"
+            {...register('searchType')}
+          />
+          <label htmlFor="firstLetter">First Letter</label>
         </div>
       </div>
       <button>SEARCH</button>
