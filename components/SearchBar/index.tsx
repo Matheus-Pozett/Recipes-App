@@ -1,3 +1,4 @@
+'use client';
 import { fetchRecipes } from '@/services/api';
 import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
