@@ -47,7 +47,7 @@ export function SearchBar() {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnSubmit)}>
+    <form onSubmit={handleSubmit(handleOnSubmit)} role="search">
       <input type="text" placeholder="Buscar receita" {...register('search')} />
       <div>
         <div>

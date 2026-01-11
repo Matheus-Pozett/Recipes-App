@@ -40,7 +40,7 @@ export function Header() {
         </Link>
         <Image
           src="/name-recipes-app.svg"
-          alt="Logo do site"
+          alt="Nome do site"
           width={0}
           height={0}
           priority
